@@ -1,7 +1,7 @@
 #include "ObjLoader.h"
 using namespace Thealmighty;
 
-bool ObjLoader::Load(QString fileName, QVector<float> &vPoints)
+bool ObjLoader::Load(QString fileName, std::vector<float> &vPoints)
 {
 	if (fileName.mid(fileName.lastIndexOf('.')) != ".obj"&&fileName.mid(fileName.lastIndexOf('.')) != ".OBJ")
 	{
@@ -18,8 +18,8 @@ bool ObjLoader::Load(QString fileName, QVector<float> &vPoints)
 	{
 		qDebug() << "open" << fileName << "success!";
 	}
-	QVector<float> vertextPoints, texturePoints;
-	QVector<std::tuple< int, int>> facesIndexs;
+	std::vector<float> vertextPoints, texturePoints;
+	std::vector<std::tuple< int, int>> facesIndexs;
 
 	while (!objfile.atEnd())
 	{
@@ -67,9 +67,9 @@ bool ObjLoader::Load(QString fileName, QVector<float> &vPoints)
 		}
 
 	}
-	if (vertextPoints.count() != 0)
+	if (vertextPoints.size() != 0)
 	{
-		qDebug() <<"vertpoints: "<< vertextPoints.count();
+		qDebug() <<"vertpoints: "<< vertextPoints.size();
 	}
 	else
 	{
@@ -78,9 +78,9 @@ bool ObjLoader::Load(QString fileName, QVector<float> &vPoints)
 	}
 
 	
-	if (facesIndexs.count() != 0)
+	if (facesIndexs.size() != 0)
 	{
-		qDebug() << "facepoints: "<<facesIndexs.count();
+		qDebug() << "facepoints: "<<facesIndexs.size();
 	}
 	else
 	{
@@ -92,11 +92,11 @@ bool ObjLoader::Load(QString fileName, QVector<float> &vPoints)
 	{
 		int vIndex = std::get<0>(verFaceInfo);
 
-		int vPointSizes = vertextPoints.count() / 3;
+		int vPointSizes = vertextPoints.size() / 3;
 		//将顶点坐标放入
-		vPoints << vertextPoints.at(vIndex * 3 - 3);
-		vPoints << vertextPoints.at(vIndex * 3 - 2);
-		vPoints << vertextPoints.at(vIndex * 3 - 1);
+		vPoints.push_back(vertextPoints.at(vIndex * 3 - 3));
+		vPoints.push_back(vertextPoints.at(vIndex * 3 - 2));
+		vPoints.push_back(vertextPoints.at(vIndex * 3 - 1));
 	}
 	vertextPoints.clear();
 	facesIndexs.clear();

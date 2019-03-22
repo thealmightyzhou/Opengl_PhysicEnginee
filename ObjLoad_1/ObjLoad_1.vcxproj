@@ -113,14 +113,21 @@
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="collision_detection_coarse.cpp" />
+    <ClCompile Include="collision_detection_fine.cpp" />
+    <ClCompile Include="contacts.cpp" />
+    <ClCompile Include="core.cpp" />
+    <ClCompile Include="forcegenerator.cpp" />
     <ClCompile Include="GenericRender.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mycamera.cpp" />
+    <ClCompile Include="object.cpp" />
     <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="particleforcegenerator.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Widget.cpp" />
+    <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Widget.h">
@@ -131,16 +138,22 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="collision_detection_coarse.h" />
+    <ClInclude Include="collision_detection_fine.h" />
+    <ClInclude Include="contacts.h" />
+    <ClInclude Include="forcegenerator.h" />
+    <ClInclude Include="log.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="particleforcegenerator.h" />
+    <ClInclude Include="world.h" />
     <QtMoc Include="Particle.h">
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtWidgets</IncludePath>
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtWidgets</IncludePath>
     </QtMoc>
-    <QtMoc Include="rigidbody.h">
+    <ClInclude Include="rigidbody.h">
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtWidgets</IncludePath>
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtWidgets</IncludePath>
-    </QtMoc>
+    </ClInclude>
     <ClInclude Include="camera.h">
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtWidgets</IncludePath>
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtWidgets</IncludePath>

@@ -7,8 +7,26 @@
 #include "camera.h"
 #include "genericrender.h"
 #include "object.h"
+#include "world.h"
+#include "contacts.h"
+#include "collision_detection_fine.h"
 namespace Thealmighty
 {
+	//场景在此搭建
+	class RBMgr
+	{
+	protected:
+		const static unsigned maxContacts = 256;
+		Contact contacts[maxContacts];
+		CollisionData cData;
+		ContactResolver resolver;
+		void GenerateContacts(std::vector<Object*> objs);
+		void UpdateObjects(float duration,std::vector<Object*> objs, QOpenGLExtraFunctions *f, const QMatrix4x4 &pMatrix, const QMatrix4x4 &vMatrix);
+	public:
+		RBMgr();
+		void Update(float duration,std::vector<Object*> objs, QOpenGLExtraFunctions *f, const QMatrix4x4 &pMatrix, const QMatrix4x4 &vMatrix);
+	};
+
 	class MyWidget : public QGLWidget
 	{
 		Q_OBJECT
@@ -17,9 +35,9 @@ namespace Thealmighty
 		~MyWidget();
 		float GetDeltaTime() { return deltaTime; }
 		int GetFps() { return framePerSec; }
-		void AddObjToScene(QString file);
-		void AddObjToScene(Object *obj);
-		void AddObjToScene(Object *obj,QMatrix4x4 modelMat);
+		void AddObjToScene(QString file,QString name = "default");
+		void AddObjToScene(QString file, QString name, QVector3D pos,QQuaternion q);
+		void Reset();
 
 	private:
 		ObjLoader _objLoader;
@@ -38,10 +56,16 @@ namespace Thealmighty
 		int framePerSec=0;
 		int frame=0;
 		float timeSum=0;
-		float deltaTime;
+		float deltaTime=0;
 		std::vector<QString> fileList;
 		std::vector<Object*> objList;
+		std::vector<QString> nameList;
+		std::vector<QVector3D> posList;
+		std::vector<QQuaternion> rotateList;
 
+
+		bool pickingObjs = false;
+		World* world;
 
 	protected:
 		QOpenGLExtraFunctions *f;
@@ -52,7 +76,9 @@ namespace Thealmighty
 		void keyReleaseEvent(QKeyEvent *event);
 		void mousePressEvent(QMouseEvent *event);
 		void mouseMoveEvent(QMouseEvent *event);
+		void mouseReleaseEvent(QMouseEvent *event);
 		void BindRenderers();
+		Object* PickObj(GLint x, GLint y);
 
 		void HandleTime();
 
@@ -65,6 +91,7 @@ namespace Thealmighty
 
 		const int width=800, height=600;
 
+		RBMgr* scene;
 
 	};
 }

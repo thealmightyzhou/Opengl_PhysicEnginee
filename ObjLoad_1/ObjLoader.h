@@ -7,11 +7,8 @@ namespace Thealmighty
 	class ObjLoader
 	{
 	public:
-		bool Load(QString fileName, QVector<float> &vPoints);
+		bool Load(QString fileName, std::vector<float> &vPoints);
 
 	};
 }
-
-
-
 #endif // !_OBJLOADER_H

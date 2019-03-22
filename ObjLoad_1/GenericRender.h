@@ -11,10 +11,11 @@ namespace Thealmighty
 		void AddTexture(QString file);
 		void LoadGLTextures();
 		void Init(QString filename);
-		void Render(QOpenGLExtraFunctions *f,const QMatrix4x4 &pMatrix, const QMatrix4x4 &vMatrix, const QMatrix4x4& mMatrix);
+		void Render(QOpenGLExtraFunctions *f,const QMatrix4x4 &pMatrix, const QMatrix4x4 &vMatrix, const QMatrix4x4& mMatrix, GLuint name,GLenum mode);
+		std::vector<float> GetVertexs() const;
 	private:
 		QOpenGLShaderProgram _program;
-		QVector<float> _vertPoints;
+		std::vector<float> _vertPoints;
 		GLuint texture[MAX_TEXTURE_NUM];
 		std::vector<QString> textureFiles;
 	};

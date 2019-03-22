@@ -16,10 +16,10 @@ void GenericRender::Init(QString filename)
 	}
 	ObjLoader objModelLoader;
 	objModelLoader.Load(filename, _vertPoints);
-	qDebug() << _vertPoints.count();
+	qDebug() << _vertPoints.size();
 }
 
-void GenericRender::Render(QOpenGLExtraFunctions *f,const QMatrix4x4 &pMatrix,const QMatrix4x4 &vMatrix,const QMatrix4x4& mMatrix)
+void GenericRender::Render(QOpenGLExtraFunctions *f,const QMatrix4x4 &pMatrix,const QMatrix4x4 &vMatrix,const QMatrix4x4& mMatrix,GLuint id,GLenum mode)
 {
 	f->glEnable(GL_DEPTH_TEST);
 	_program.bind();
@@ -27,6 +27,11 @@ void GenericRender::Render(QOpenGLExtraFunctions *f,const QMatrix4x4 &pMatrix,co
 	_program.setUniformValue("uPMatrix", pMatrix);
 	_program.setUniformValue("uVMatrix", vMatrix);
 	_program.setUniformValue("uMMatrix", mMatrix);
+
+	if (mode == GL_SELECT)
+	{
+		glLoadName(id);
+	}
 
 	GLuint VBO, VAO;
 	
@@ -42,8 +47,10 @@ void GenericRender::Render(QOpenGLExtraFunctions *f,const QMatrix4x4 &pMatrix,co
 	f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (GLvoid*)0);
 	f->glEnableVertexAttribArray(0);
 
-	f->glDrawArrays(GL_TRIANGLES, 0, _vertPoints.count()/3);//以三角面绘制
-	//f->glDrawArrays(GL_POINTS, 0, _vertPoints.count());//以点绘制
+	f->glDrawArrays(GL_TRIANGLES, 0, _vertPoints.size()/3);//以三角面绘制
+	//f->glDrawArrays(GL_POINTS, 0, _vertPoints.size());//以点绘制
+
+
 
 	f->glBindVertexArray(0);
 	f->glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -52,6 +59,12 @@ void GenericRender::Render(QOpenGLExtraFunctions *f,const QMatrix4x4 &pMatrix,co
 	_program.release();
 	f->glDisable(GL_DEPTH_TEST);
 }
+
+std::vector<float> GenericRender::GetVertexs() const
+{
+	return _vertPoints;
+}
+
 //void GenericRender::LoadGLTextures()
 //{
 //	QImage buf, tex;

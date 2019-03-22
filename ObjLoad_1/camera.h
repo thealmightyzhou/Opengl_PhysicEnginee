@@ -17,7 +17,6 @@ namespace Thealmighty
 	class MyCamera
 	{
 	public:
-		/* 构造函数和析构函数 */
 		MyCamera();
 		~MyCamera() {};
 
@@ -33,13 +32,13 @@ namespace Thealmighty
 		void SetPitch(float a);
 		void SetYaw(float a);
 		void Update();
-
+		float viewAngle, aspect, nearDist, farDist;
 
 	private:
 		/* 摄像机属性 */
 		QVector3D location, forward, side, up;
 		float pitchAngle, yawAngle;
-		float viewAngle, aspect, nearDist, farDist;
+
 		QMatrix4x4 viewMatrix, projectionMatrix;
 		bool keyArr[100];
 	};
